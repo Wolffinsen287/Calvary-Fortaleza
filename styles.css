@@ -533,6 +533,21 @@ html.is-modal-open{overflow:hidden;}
 .card__meta a:hover{text-decoration-thickness:3px;}
 .card__footer{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
 
+.map-embed{
+  margin-top:14px;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background:rgba(11,31,59,.04);
+  aspect-ratio: 16 / 10;
+}
+.map-embed iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+
 .list{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
 .list__item{display:flex;gap:14px;justify-content:space-between;align-items:flex-start;}
 .list__label{font-weight:800;}
