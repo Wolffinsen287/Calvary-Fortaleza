@@ -21,6 +21,8 @@
     if (!navMenu || !navToggle) return;
     navMenu.classList.toggle('is-open', open);
     navToggle.setAttribute('aria-expanded', String(open));
+    // Accesibilidad: el label debe reflejar el estado
+    navToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
 
     debug('menu', open ? 'open' : 'close');
 
@@ -69,6 +71,52 @@
     return Number.isFinite(parsed) ? parsed + 18 : 90;
   };
 
+  // -----------------
+  // Active section highlight (UI hierarchy)
+  // -----------------
+  const navLinks = Array.from(document.querySelectorAll('.nav__link[href^="#"]'));
+  const sectionIds = navLinks
+    .map((link) => (link.getAttribute('href') || '').replace('#', ''))
+    .filter(Boolean);
+  const sections = sectionIds
+    .map((id) => document.getElementById(id))
+    .filter((el) => el instanceof HTMLElement);
+
+  const setActiveNav = (activeId) => {
+    for (const link of navLinks) {
+      const id = (link.getAttribute('href') || '').replace('#', '');
+      const isActive = id && id === activeId;
+
+      link.classList.toggle('is-active', isActive);
+      if (isActive) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    }
+  };
+
+  const getActiveSectionId = () => {
+    if (!sections.length) return '';
+    const y = window.scrollY + getHeaderOffset() + 12;
+    let current = sections[0]?.id || '';
+    for (const section of sections) {
+      if (!section) continue;
+      if (section.offsetTop <= y) current = section.id;
+    }
+    return current;
+  };
+
+  let rafPending = false;
+  const onScrollUpdateActive = () => {
+    if (rafPending) return;
+    rafPending = true;
+    window.requestAnimationFrame(() => {
+      rafPending = false;
+      const id = getActiveSectionId();
+      if (id) setActiveNav(id);
+    });
+  };
+
+  window.addEventListener('scroll', onScrollUpdateActive, { passive: true });
+
   const scrollToHash = (hash) => {
     const id = (hash || '').replace('#', '');
     if (!id) return;
@@ -78,6 +126,9 @@
 
     const y = el.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
     window.scrollTo({ top: y, behavior: 'smooth' });
+
+    // Mantiene el navbar sincronizado al navegar por hash
+    setActiveNav(id);
   };
 
   document.addEventListener('click', (e) => {
@@ -104,6 +155,9 @@
     if (location.hash) {
       setTimeout(() => scrollToHash(location.hash), 60);
     }
+
+    // Estado inicial (sin hash o después de layout)
+    onScrollUpdateActive();
   });
 
   // -----------------

@@ -10,8 +10,16 @@
 
   /* Brand palette */
   --navy:#0B1F3B;   /* Primary dark */
-  --sky:#4DA3FF;    /* Accent */
+  --sky:#4DA3FF;    /* Accent (para fondos/superficies) */
   --white:#FFFFFF;  /* Secondary light */
+
+  /*
+    Accent accesible para TEXTO sobre fondo claro.
+    Nota: `--sky` es intencionalmente brillante (mejor para fondos),
+    pero no siempre alcanza AA como color de texto en blanco.
+  */
+  --accent:#0A5AA8;
+  --accent-weak:rgba(10,90,168,.14);
 
   /* Semantic tokens */
   --bg:var(--white);
@@ -47,7 +55,8 @@
   --ease:cubic-bezier(.2,.8,.2,1);
 }
 
-html{scroll-behavior:smooth;}
+/* Tipografía base: mínimo 16px (accesibilidad) */
+html{scroll-behavior:smooth;font-size:16px;}
 
 *{box-sizing:border-box;}
 
@@ -64,9 +73,31 @@ body{
   text-rendering:optimizeLegibility;
 }
 
+/*
+  Jerarquía tipográfica (consistente):
+  - H1: título principal
+  - H2: títulos de sección
+  - H3: subtítulos/cards
+*/
+h1{font-size:clamp(34px, 6vw, 60px);line-height:1.05;letter-spacing:var(--tracking-tight);}
+h2{font-size:clamp(24px, 3.2vw, 34px);line-height:1.12;letter-spacing:var(--tracking-tight);}
+h3{font-size:18px;line-height:1.2;letter-spacing:var(--tracking-normal);}
+
 img{max-width:100%;display:block;}
 
+/* Links: estilo consistente y distinguible (mejora de UI + accesibilidad) */
 a{color:inherit;text-decoration:none;}
+
+/* Links dentro del contenido (evita afectar botones/brand/nav) */
+main a:not(.btn):not(.nav__link):not(.brand):not(.map-static){
+  color:var(--accent);
+  text-decoration:underline;
+  text-decoration-thickness:2px;
+  text-underline-offset:3px;
+}
+main a:not(.btn):not(.nav__link):not(.brand):not(.map-static):hover{
+  text-decoration-thickness:3px;
+}
 
 /* Accessible focus styles */
 :where(a, button, [role="button"], input, textarea, select):focus-visible{
@@ -194,9 +225,18 @@ a{color:inherit;text-decoration:none;}
   opacity:.86;
   padding:10px 10px;
   border-radius:12px;
-  transition:background 180ms var(--ease), opacity 180ms var(--ease);
+  transition:background 180ms var(--ease), opacity 180ms var(--ease), color 180ms var(--ease), box-shadow 180ms var(--ease);
 }
 .nav__link:hover{background:var(--surface);opacity:1;}
+
+/* Navegación: sección activa (jerarquía clara + SR via aria-current) */
+.nav__link[aria-current="page"],
+.nav__link.is-active{
+  background:linear-gradient(180deg, var(--tint), rgba(255,255,255,.0));
+  opacity:1;
+  color:var(--accent);
+  box-shadow:inset 0 0 0 1px var(--accent-weak);
+}
 
 /* Hero */
 .hero{
@@ -570,7 +610,7 @@ html.is-modal-open{overflow:hidden;}
 .card__subtitle{font-weight:700;opacity:.72;font-size:14px;}
 .card__meta{margin:10px 0 12px;color:var(--muted);font-weight:600;}
 .card__meta strong{font-weight:900;}
-.card__meta a{color:rgba(11,31,59,.92);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
+.card__meta a{color:var(--accent);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
 .card__meta a:hover{text-decoration-thickness:3px;}
 .card__footer{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
 
@@ -739,7 +779,7 @@ html.is-modal-open{overflow:hidden;}
 }
 .footer__name{font-weight:900;letter-spacing:-.02em;margin-bottom:8px;}
 .footer__verse{color:rgba(11,31,59,.75);max-width:62ch;}
-.social{display:inline-flex;padding:10px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.72);font-weight:800;font-size:13px;}
+.social{display:inline-flex;padding:10px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.72);font-weight:800;font-size:13px;color:var(--accent);}
 .social:hover{background:var(--surface)}
 .footer__social{display:flex;gap:10px;flex-wrap:wrap;}
 .footer__actions{display:flex;justify-content:flex-end;}

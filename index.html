@@ -45,7 +45,8 @@
       </button>
 
       <div class="nav__menu" id="navMenu">
-        <a class="nav__link" href="#inicio">Inicio</a>
+        <!-- Accesibilidad: estado inicial (JS lo actualiza al hacer scroll) -->
+        <a class="nav__link" href="#inicio" aria-current="page">Inicio</a>
         <a class="nav__link" href="#mision">Misión</a>
         <a class="nav__link" href="#quienes">¿Quiénes Somos?</a>
         <a class="nav__link" href="#sedes">Sedes</a>
@@ -58,7 +59,8 @@
   <main>
     <!-- 1) Hero / Inicio -->
     <section class="hero" id="inicio" aria-label="Inicio">
-      <div class="hero__bg" role="img" aria-label="Imagen de fondo (placeholder)"></div>
+      <!-- Accesibilidad: la imagen de fondo es decorativa -->
+      <div class="hero__bg" aria-hidden="true"></div>
       <div class="hero__overlay" aria-hidden="true"></div>
 
       <div class="container hero__content">
