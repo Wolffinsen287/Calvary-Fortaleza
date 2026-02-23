@@ -628,6 +628,15 @@ html.is-modal-open{overflow:hidden;}
   gap:16px;
   align-items:start;
 }
+.footer__logo{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  object-fit:cover;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.9);
+  margin-bottom:10px;
+}
 .footer__name{font-weight:900;letter-spacing:-.02em;margin-bottom:8px;}
 .footer__verse{color:rgba(11,31,59,.75);max-width:62ch;}
 .social{display:inline-flex;padding:10px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.72);font-weight:800;font-size:13px;}

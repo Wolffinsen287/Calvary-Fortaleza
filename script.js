@@ -144,6 +144,10 @@
   const RSS2JSON_LEGACY = "https://rss2json.com/api.json?rss_url=";
   const ALLORIGINS_RAW = "https://api.allorigins.win/raw?url=";
 
+  const TIMEOUT_MS = 6500;
+  const CHANNEL_ID_CACHE_KEY = `fortaleza_channel_id_cache_${HANDLE}`;
+  const CHANNEL_ID_CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 días
+
   const grid = document.getElementById("sermonsGrid");
   const statusEl = document.getElementById("sermonsStatus");
   const featuredEl = document.getElementById("featuredSermon");
@@ -291,7 +295,7 @@
     featuredEl.innerHTML = `
       <article class="featured-card animate animate--up">
         <button class="featured-card__media" type="button" aria-label="Ver último mensaje: ${safeTitle}">
-          <img class="featured-card__img" src="${thumb}" alt="Miniatura del último mensaje: ${safeTitle}" loading="lazy" />
+          <img class="featured-card__img" src="${thumb}" alt="Miniatura del último mensaje: ${safeTitle}" loading="eager" fetchpriority="high" decoding="async" />
           <span class="featured-card__shade" aria-hidden="true"></span>
           <div class="featured-card__content">
             <span class="featured-card__badge" aria-hidden="true">Último mensaje</span>
@@ -364,14 +368,25 @@
     });
   };
 
+  const fetchWithTimeout = async (url, options) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+    try {
+      const res = await fetch(url, { ...options, signal: controller.signal });
+      return res;
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  };
+
   const fetchText = async (url) => {
-    const res = await fetch(url, { headers: { Accept: "text/plain, application/xml, text/xml, */*" } });
+    const res = await fetchWithTimeout(url, { headers: { Accept: "text/plain, application/xml, text/xml, */*" } });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.text();
   };
 
   const fetchJson = async (url) => {
-    const res = await fetch(url, { headers: { Accept: "application/json" } });
+    const res = await fetchWithTimeout(url, { headers: { Accept: "application/json" } });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   };
@@ -463,16 +478,61 @@
     return m?.[1] || "";
   };
 
+  const readCachedChannelId = () => {
+    try {
+      const raw = localStorage.getItem(CHANNEL_ID_CACHE_KEY);
+      if (!raw) return "";
+      const cached = JSON.parse(raw);
+      if (cached?.expiresAt > Date.now() && typeof cached?.channelId === "string") return cached.channelId;
+    } catch {
+      // ignore
+    }
+    return "";
+  };
+
+  const writeCachedChannelId = (channelId) => {
+    try {
+      localStorage.setItem(
+        CHANNEL_ID_CACHE_KEY,
+        JSON.stringify({
+          channelId,
+          expiresAt: Date.now() + CHANNEL_ID_CACHE_TTL_MS
+        })
+      );
+    } catch {
+      // ignore
+    }
+  };
+
   const resolveChannelId = async () => {
     if (FALLBACK_CHANNEL_ID) return { channelId: FALLBACK_CHANNEL_ID, data: null };
 
-    const scraped = await getChannelIdFromHandle(HANDLE);
-    if (scraped) return { channelId: scraped, data: null };
+    const cached = readCachedChannelId();
+    if (cached) return { channelId: cached, data: null };
 
+    // Intento rápido: algunos canales aún responden a feed legacy por user
     const legacyRss = `https://www.youtube.com/feeds/videos.xml?user=${encodeURIComponent(HANDLE)}`;
-    const data = await getFeedData(legacyRss);
-    const channelId = extractChannelIdFromFeedUrl(data?.feed?.url);
-    return { channelId, data };
+    try {
+      const data = await getFeedData(legacyRss);
+      const channelId = extractChannelIdFromFeedUrl(data?.feed?.url);
+      if (channelId) {
+        writeCachedChannelId(channelId);
+        return { channelId, data };
+      }
+      // si no hay channelId pero hay items, devolvemos data para no bloquear
+      if (Array.isArray(data?.items) && data.items.length) return { channelId: "", data };
+    } catch {
+      // ignore
+    }
+
+    // Más lento: scrape del canal por handle (vía proxy CORS)
+    const scraped = await getChannelIdFromHandle(HANDLE);
+    if (scraped) {
+      writeCachedChannelId(scraped);
+      return { channelId: scraped, data: null };
+    }
+
+    return { channelId: "", data: null };
   };
 
   const fetchSermones = async () => {
@@ -524,13 +584,7 @@
       setStatus("Mostrando las prédicas más recientes.");
 
       try {
-        localStorage.setItem(
-          cacheKey,
-          JSON.stringify({
-            expiresAt: now + 30 * 60 * 1000,
-            items
-          })
-        );
+        localStorage.setItem(cacheKey, JSON.stringify({ expiresAt: now + 6 * 60 * 60 * 1000, items }));
       } catch {
         // ignore
       }
