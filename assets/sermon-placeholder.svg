@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Miniatura de video">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1F3B" stop-opacity="0.10" />
+      <stop offset="1" stop-color="#4DA3FF" stop-opacity="0.18" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)" />
+  <rect x="60" y="60" width="1080" height="555" rx="36" fill="#FFFFFF" fill-opacity="0.55" />
+  <circle cx="600" cy="338" r="92" fill="#0B1F3B" fill-opacity="0.18" />
+  <path d="M575 292 L675 338 L575 384 Z" fill="#0B1F3B" fill-opacity="0.55" />
+  <text x="600" y="520" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="34" fill="#0B1F3B" fill-opacity="0.55">Video</text>
+</svg>

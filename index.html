@@ -38,6 +38,7 @@
         <a class="nav__link" href="#mision">Misión</a>
         <a class="nav__link" href="#quienes">¿Quiénes Somos?</a>
         <a class="nav__link" href="#sedes">Sedes</a>
+        <a class="nav__link" href="#predicas">Prédicas</a>
         <a class="nav__link" href="#ministerios">Ministerios</a>
       </div>
     </nav>
@@ -158,7 +159,34 @@
       </div>
     </section>
 
-    <!-- 5) Ministerios -->
+    <!-- 5) Últimas prédicas -->
+    <section class="section" id="predicas">
+      <div class="container">
+        <div class="section__header reveal">
+          <h2 class="section__title">Últimas Prédicas</h2>
+          <p class="section__lead">Mira los mensajes más recientes y continúa en YouTube.</p>
+        </div>
+
+        <div id="featuredSermon" aria-label="Último mensaje"></div>
+
+        <div class="sermons__head">
+          <p class="sermons__status" id="sermonsStatus" aria-live="polite">Cargando las prédicas más recientes…</p>
+          <a class="btn btn--ghost btn--sm" id="sermonsMoreBtn" href="#" target="_blank" rel="noopener noreferrer">Ver más en YouTube</a>
+        </div>
+
+        <div class="sermons__grid" id="sermonsGrid" aria-label="Mensajes recientes"></div>
+      </div>
+
+      <div class="video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-label="Reproductor de video">
+        <div class="video-modal__backdrop" data-modal-close aria-hidden="true"></div>
+        <div class="video-modal__panel" role="document">
+          <button class="video-modal__close" type="button" data-modal-close aria-label="Cerrar">Cerrar</button>
+          <div class="video-modal__frame" id="videoModalFrame"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6) Ministerios -->
     <section class="section section--alt" id="ministerios">
       <div class="container">
         <div class="section__header reveal">
