@@ -129,24 +129,73 @@
         </div>
 
         <div class="cards cards--two">
-          <article class="card reveal" aria-label="Calvary Fortaleza Querétaro Norte (San José)">
-            <header class="card__header">
-              <h3 class="card__title">Calvary Fortaleza Querétaro Norte <span class="card__subtitle">(San José)</span></h3>
+          <!--
+            Rediseño “Sedes”:
+            - Secciones internas claras (dirección / horarios / contacto / acciones)
+            - Horarios en tabla para escaneo rápido
+            - Mapa con altura limitada (menos peso visual)
+          -->
+          <article class="card sede-card reveal" aria-label="Calvary Fortaleza Querétaro Norte (San José)">
+            <header class="sede-card__header">
+              <h3 class="sede-card__title">Calvary Fortaleza Querétaro Norte</h3>
+              <p class="sede-card__city">San José · Querétaro</p>
             </header>
-            <p class="card__meta">
-              <strong>Dirección:</strong> Av. Carril esquina Jacarandas, Rancho Quemado, 76147 Santiago de Querétaro, Qro.<br />
-              <strong>Ubicación:</strong> <a href="https://www.google.com/maps/place/Calvary+Fortaleza+Quer%C3%A9taro+Norte/@20.6550236,-100.3780908,17z/data=!3m1!4b1!4m16!1m9!4m8!1m0!1m6!1m2!1s0x85d35b1c97e00647:0x767c3218884831a4!2sCalvary+Fortaleza+Quer%C3%A9taro+Norte,+Av.+Carril+esquina,+Jacarandas,+Rancho+Quemado,+76147+Santiago+de+Quer%C3%A9taro,+Qro.!2m2!1d-100.3755114!2d20.6550265!3m5!1s0x85d35b1c97e00647:0x767c3218884831a4!8m2!3d20.6550186!4d-100.3755159!16s%2Fg%2F11g_4kym0?entry=ttu&amp;g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a><br />
-              <strong>Notas:</strong> Llega 10 min antes · Ambiente familiar · Kids bienvenidos.
-            </p>
-            <ul class="list">
-              <li class="list__item"><span class="list__label">Servicio general</span><span class="list__value">Domingos 10:00 a.m.</span></li>
-              <li class="list__item"><span class="list__label">Estudio Bíblico</span><span class="list__value">Martes 8:00 p.m.</span></li>
-              <li class="list__item"><span class="list__label">Jóvenes 18+</span><span class="list__value">Sábados 5:00 p.m.</span></li>
-              <li class="list__item"><span class="list__label">Contacto</span><span class="list__value">WhatsApp: +52 (000) 000 0000</span></li>
-            </ul>
+
+            <div class="sede-card__section sede-card__section--alt">
+              <h4 class="sede-card__label">Dirección</h4>
+              <p class="sede-card__text">
+                Av. Carril esquina Jacarandas, Rancho Quemado, 76147 Santiago de Querétaro, Qro.
+              </p>
+              <a class="sede-card__link" href="https://www.google.com/maps/place/Calvary+Fortaleza+Quer%C3%A9taro+Norte/@20.6550236,-100.3780908,17z/data=!3m1!4b1!4m16!1m9!4m8!1m0!1m6!1m2!1s0x85d35b1c97e00647:0x767c3218884831a4!2sCalvary+Fortaleza+Quer%C3%A9taro+Norte,+Av.+Carril+esquina,+Jacarandas,+Rancho+Quemado,+76147+Santiago+de+Quer%C3%A9taro,+Qro.!2m2!1d-100.3755114!2d20.6550265!3m5!1s0x85d35b1c97e00647:0x767c3218884831a4!8m2!3d20.6550186!4d-100.3755159!16s%2Fg%2F11g_4kym0?entry=ttu&amp;g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a>
+            </div>
+
+            <div class="sede-card__section">
+              <h4 class="sede-card__label">Horarios</h4>
+              <!-- Accesibilidad + escaneabilidad: tabla semántica -->
+              <table class="schedule-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Actividad</th>
+                    <th scope="col">Día</th>
+                    <th scope="col">Hora</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="schedule-table__activity">Servicio general</td>
+                    <td>Domingo</td>
+                    <td><span class="schedule-table__time">10:00 a.m.</span></td>
+                  </tr>
+                  <tr>
+                    <td class="schedule-table__activity">Estudio Bíblico</td>
+                    <td>Martes</td>
+                    <td><span class="schedule-table__time">8:00 p.m.</span></td>
+                  </tr>
+                  <tr>
+                    <td class="schedule-table__activity">Jóvenes 18+</td>
+                    <td>Sábado</td>
+                    <td><span class="schedule-table__time">5:00 p.m.</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="sede-card__section sede-card__section--alt">
+              <h4 class="sede-card__label">Contacto</h4>
+              <div class="contact-rows" role="list">
+                <div class="contact-row" role="listitem">
+                  <span class="contact-row__label">WhatsApp</span>
+                  <span class="contact-row__value">+52 (000) 000 0000</span>
+                </div>
+                <div class="contact-row" role="listitem">
+                  <span class="contact-row__label">Notas</span>
+                  <span class="contact-row__value">Llega 10 min antes · Kids bienvenidos</span>
+                </div>
+              </div>
+            </div>
 
             <a
-              class="map-static map-static--tiles"
+              class="map-static map-static--tiles sede-card__map"
               aria-label="Ver mapa de San José"
               href="https://www.google.com/maps/place/Calvary+Fortaleza+Quer%C3%A9taro+Norte/@20.6550236,-100.3780908,17z/data=!3m1!4b1!4m16!1m9!4m8!1m0!1m6!1m2!1s0x85d35b1c97e00647:0x767c3218884831a4!2sCalvary+Fortaleza+Quer%C3%A9taro+Norte,+Av.+Carril+esquina,+Jacarandas,+Rancho+Quemado,+76147+Santiago+de+Quer%C3%A9taro,+Qro.!2m2!1d-100.3755114!2d20.6550265!3m5!1s0x85d35b1c97e00647:0x767c3218884831a4!8m2!3d20.6550186!4d-100.3755159!16s%2Fg%2F11g_4kym0?entry=ttu&amp;g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
@@ -154,31 +203,74 @@
               style="--tile-a:url('https://tile.openstreetmap.org/16/14495/28923.png');--tile-b:url('https://tile.openstreetmap.org/16/14496/28923.png');--tile-c:url('https://tile.openstreetmap.org/16/14495/28924.png');--tile-d:url('https://tile.openstreetmap.org/16/14496/28924.png');"
             ></a>
 
-            <div class="card__footer">
+            <div class="sede-card__actions" aria-label="Acciones">
+              <!-- Jerarquía de botones: 1 primario + secundarios outline -->
               <a class="btn btn--primary btn--sm" href="#ministerios">Ver ministerios</a>
-              <a class="btn btn--ghost btn--sm" href="#quienes">Conócenos</a>
-              <a class="btn btn--ghost btn--sm" href="https://www.google.com/maps/place/Calvary+Fortaleza+Quer%C3%A9taro+Norte/@20.6550236,-100.3780908,17z/data=!3m1!4b1!4m16!1m9!4m8!1m0!1m6!1m2!1s0x85d35b1c97e00647:0x767c3218884831a4!2sCalvary+Fortaleza+Quer%C3%A9taro+Norte,+Av.+Carril+esquina,+Jacarandas,+Rancho+Quemado,+76147+Santiago+de+Quer%C3%A9taro,+Qro.!2m2!1d-100.3755114!2d20.6550265!3m5!1s0x85d35b1c97e00647:0x767c3218884831a4!8m2!3d20.6550186!4d-100.3755159!16s%2Fg%2F11g_4kym0?entry=ttu&amp;g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ubicación</a>
+              <a class="btn btn--outline btn--sm" href="#quienes">Conócenos</a>
+              <a class="btn btn--outline btn--sm" href="https://www.google.com/maps/place/Calvary+Fortaleza+Quer%C3%A9taro+Norte/@20.6550236,-100.3780908,17z/data=!3m1!4b1!4m16!1m9!4m8!1m0!1m6!1m2!1s0x85d35b1c97e00647:0x767c3218884831a4!2sCalvary+Fortaleza+Quer%C3%A9taro+Norte,+Av.+Carril+esquina,+Jacarandas,+Rancho+Quemado,+76147+Santiago+de+Quer%C3%A9taro,+Qro.!2m2!1d-100.3755114!2d20.6550265!3m5!1s0x85d35b1c97e00647:0x767c3218884831a4!8m2!3d20.6550186!4d-100.3755159!16s%2Fg%2F11g_4kym0?entry=ttu&amp;g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ubicación</a>
             </div>
           </article>
 
-          <article class="card reveal" style="transition-delay: 80ms" aria-label="Calvary Fortaleza El Marqués">
-            <header class="card__header">
-              <h3 class="card__title">Calvary Fortaleza El Marqués</h3>
+          <article class="card sede-card reveal" style="transition-delay: 80ms" aria-label="Calvary Fortaleza El Marqués">
+            <header class="sede-card__header">
+              <h3 class="sede-card__title">Calvary Fortaleza</h3>
+              <p class="sede-card__city">El Marqués · Querétaro</p>
             </header>
-            <p class="card__meta">
-              <strong>Dirección:</strong> Prol. Constituyentes Ote. 104, 2º piso, Fracc. Zen (Plaza Luz), 76246, Qro.<br />
-              <strong>Ubicación:</strong> <a href="https://www.google.com/maps/place/Calvary+Fortaleza+El+Marqu%C3%A9s/@20.592003,-100.3274234,17z/data=!3m1!4b1!4m20!1m13!4m12!1m4!2m2!1d-106.4160374!2d23.2578745!4e1!1m6!1m2!1s0x85d35db2896c8681:0xc1af0307deb8e72a!2sCalvary+Fortaleza+El+Marqu%C3%A9s,+Prol.+Constituyentes+Ote.+104-2o+Piso,+Fraccionamiento+Zen,+Plaza+Luz,+76246+Fraccionamiento+Zen,+Qro.!2m2!1d-100.3248541!2d20.5921006!3m5!1s0x85d35db2896c8681:0xc1af0307deb8e72a!8m2!3d20.591998!4d-100.3248485!16s%2Fg%2F11nn15kl0l?entry=ttu&amp;g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a><br />
-              <strong>Notas:</strong> Dos horarios dominicales · Ambiente juvenil · Estudio bíblico a mitad de semana.
-            </p>
-            <ul class="list">
-              <li class="list__item"><span class="list__label">Servicio general</span><span class="list__value">Domingos 12:30 p.m. y 6:00 p.m.</span></li>
-              <li class="list__item"><span class="list__label">Estudio Bíblico</span><span class="list__value">Miércoles 8:00 p.m.</span></li>
-              <li class="list__item"><span class="list__label">Jóvenes 18+</span><span class="list__value">Viernes 7:30 p.m.</span></li>
-              <li class="list__item"><span class="list__label">Contacto</span><span class="list__value">WhatsApp: +52 (000) 000 0000</span></li>
-            </ul>
+
+            <div class="sede-card__section sede-card__section--alt">
+              <h4 class="sede-card__label">Dirección</h4>
+              <p class="sede-card__text">
+                Prol. Constituyentes Ote. 104, 2º piso, Fracc. Zen (Plaza Luz), 76246, Qro.
+              </p>
+              <a class="sede-card__link" href="https://www.google.com/maps/place/Calvary+Fortaleza+El+Marqu%C3%A9s/@20.592003,-100.3274234,17z/data=!3m1!4b1!4m20!1m13!4m12!1m4!2m2!1d-106.4160374!2d23.2578745!4e1!1m6!1m2!1s0x85d35db2896c8681:0xc1af0307deb8e72a!2sCalvary+Fortaleza+El+Marqu%C3%A9s,+Prol.+Constituyentes+Ote.+104-2o+Piso,+Fraccionamiento+Zen,+Plaza+Luz,+76246+Fraccionamiento+Zen,+Qro.!2m2!1d-100.3248541!2d20.5921006!3m5!1s0x85d35db2896c8681:0xc1af0307deb8e72a!8m2!3d20.591998!4d-100.3248485!16s%2Fg%2F11nn15kl0l?entry=ttu&amp;g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a>
+            </div>
+
+            <div class="sede-card__section">
+              <h4 class="sede-card__label">Horarios</h4>
+              <table class="schedule-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Actividad</th>
+                    <th scope="col">Día</th>
+                    <th scope="col">Hora</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="schedule-table__activity">Servicio general</td>
+                    <td>Domingo</td>
+                    <td><span class="schedule-table__time">12:30 p.m.</span> <span class="schedule-table__time">6:00 p.m.</span></td>
+                  </tr>
+                  <tr>
+                    <td class="schedule-table__activity">Estudio Bíblico</td>
+                    <td>Miércoles</td>
+                    <td><span class="schedule-table__time">8:00 p.m.</span></td>
+                  </tr>
+                  <tr>
+                    <td class="schedule-table__activity">Jóvenes 18+</td>
+                    <td>Viernes</td>
+                    <td><span class="schedule-table__time">7:30 p.m.</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="sede-card__section sede-card__section--alt">
+              <h4 class="sede-card__label">Contacto</h4>
+              <div class="contact-rows" role="list">
+                <div class="contact-row" role="listitem">
+                  <span class="contact-row__label">WhatsApp</span>
+                  <span class="contact-row__value">+52 (000) 000 0000</span>
+                </div>
+                <div class="contact-row" role="listitem">
+                  <span class="contact-row__label">Notas</span>
+                  <span class="contact-row__value">Dos horarios dominicales · Ambiente juvenil</span>
+                </div>
+              </div>
+            </div>
 
             <a
-              class="map-static map-static--tiles"
+              class="map-static map-static--tiles sede-card__map"
               aria-label="Ver mapa de El Marqués"
               href="https://www.google.com/maps/place/Calvary+Fortaleza+El+Marqu%C3%A9s/@20.592003,-100.3274234,17z/data=!3m1!4b1!4m20!1m13!4m12!1m4!2m2!1d-106.4160374!2d23.2578745!4e1!1m6!1m2!1s0x85d35db2896c8681:0xc1af0307deb8e72a!2sCalvary+Fortaleza+El+Marqu%C3%A9s,+Prol.+Constituyentes+Ote.+104-2o+Piso,+Fraccionamiento+Zen,+Plaza+Luz,+76246+Fraccionamiento+Zen,+Qro.!2m2!1d-100.3248541!2d20.5921006!3m5!1s0x85d35db2896c8681:0xc1af0307deb8e72a!8m2!3d20.591998!4d-100.3248485!16s%2Fg%2F11nn15kl0l?entry=ttu&amp;g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
@@ -186,10 +278,10 @@
               style="--tile-a:url('https://tile.openstreetmap.org/16/14504/28935.png');--tile-b:url('https://tile.openstreetmap.org/16/14505/28935.png');--tile-c:url('https://tile.openstreetmap.org/16/14504/28936.png');--tile-d:url('https://tile.openstreetmap.org/16/14505/28936.png');"
             ></a>
 
-            <div class="card__footer">
+            <div class="sede-card__actions" aria-label="Acciones">
               <a class="btn btn--primary btn--sm" href="#ministerios">Ver ministerios</a>
-              <a class="btn btn--ghost btn--sm" href="#quienes">Conócenos</a>
-              <a class="btn btn--ghost btn--sm" href="https://www.google.com/maps/place/Calvary+Fortaleza+El+Marqu%C3%A9s/@20.592003,-100.3274234,17z/data=!3m1!4b1!4m20!1m13!4m12!1m4!2m2!1d-106.4160374!2d23.2578745!4e1!1m6!1m2!1s0x85d35db2896c8681:0xc1af0307deb8e72a!2sCalvary+Fortaleza+El+Marqu%C3%A9s,+Prol.+Constituyentes+Ote.+104-2o+Piso,+Fraccionamiento+Zen,+Plaza+Luz,+76246+Fraccionamiento+Zen,+Qro.!2m2!1d-100.3248541!2d20.5921006!3m5!1s0x85d35db2896c8681:0xc1af0307deb8e72a!8m2!3d20.591998!4d-100.3248485!16s%2Fg%2F11nn15kl0l?entry=ttu&amp;g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ubicación</a>
+              <a class="btn btn--outline btn--sm" href="#quienes">Conócenos</a>
+              <a class="btn btn--outline btn--sm" href="https://www.google.com/maps/place/Calvary+Fortaleza+El+Marqu%C3%A9s/@20.592003,-100.3274234,17z/data=!3m1!4b1!4m20!1m13!4m12!1m4!2m2!1d-106.4160374!2d23.2578745!4e1!1m6!1m2!1s0x85d35db2896c8681:0xc1af0307deb8e72a!2sCalvary+Fortaleza+El+Marqu%C3%A9s,+Prol.+Constituyentes+Ote.+104-2o+Piso,+Fraccionamiento+Zen,+Plaza+Luz,+76246+Fraccionamiento+Zen,+Qro.!2m2!1d-100.3248541!2d20.5921006!3m5!1s0x85d35db2896c8681:0xc1af0307deb8e72a!8m2!3d20.591998!4d-100.3248485!16s%2Fg%2F11nn15kl0l?entry=ttu&amp;g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ubicación</a>
             </div>
           </article>
         </div>

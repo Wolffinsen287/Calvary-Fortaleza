@@ -584,6 +584,24 @@ html.is-modal-open{overflow:hidden;}
 .btn--ghost:hover{transform:translateY(-2px);background:rgba(11,31,59,.06);box-shadow:var(--shadow-tiny);}
 .btn--ghost:active{transform:translateY(0);}
 
+/*
+  Secondary CTA: outline.
+  - Mantiene jerarquía debajo del primario
+  - Buen contraste sobre fondo claro
+*/
+.btn--outline{
+  background:transparent;
+  color:var(--accent);
+  border-color:rgba(10,90,168,.38);
+}
+.btn--outline:hover{
+  transform:translateY(-2px);
+  background:var(--accent-weak);
+  border-color:rgba(10,90,168,.52);
+  box-shadow:var(--shadow-tiny);
+}
+.btn--outline:active{transform:translateY(0);}
+
 .hero .btn--ghost{
   background:rgba(255,255,255,.12);
   color:var(--white);
@@ -613,6 +631,84 @@ html.is-modal-open{overflow:hidden;}
 .card__meta a{color:var(--accent);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
 .card__meta a:hover{text-decoration-thickness:3px;}
 .card__footer{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+
+/*
+  Sedes: rediseño de tarjeta (mejor escaneo)
+  - Bloques internos con padding y fondos alternados
+  - Horarios en tabla con actividad en negritas y hora destacada
+  - Acciones con jerarquía: 1 primario + secundarios outline
+*/
+.sede-card{padding:0;}
+.sede-card__header{padding:18px 18px 10px;}
+.sede-card__title{margin:0;font-size:20px;letter-spacing:var(--tracking-tight);}
+.sede-card__city{margin:6px 0 0;color:var(--muted);font-weight:700;}
+
+.sede-card__section{
+  padding:14px 18px;
+  border-top:1px solid rgba(11,31,59,.10);
+}
+.sede-card__section--alt{background:rgba(11,31,59,.03);}
+
+.sede-card__label{
+  margin:0 0 8px;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:rgba(11,31,59,.80);
+}
+.sede-card__text{margin:0 0 10px;color:var(--muted);font-weight:600;}
+.sede-card__link{display:inline-flex;font-weight:900;}
+
+/* Horarios (tabla) */
+.schedule-table{
+  width:100%;
+  border-collapse:collapse;
+  border-spacing:0;
+}
+.schedule-table th{
+  text-align:left;
+  font-size:12px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:rgba(11,31,59,.70);
+  padding:10px 0;
+  border-bottom:1px solid rgba(11,31,59,.10);
+}
+.schedule-table td{
+  padding:10px 0;
+  border-bottom:1px solid rgba(11,31,59,.08);
+  vertical-align:top;
+  color:rgba(11,31,59,.82);
+  font-weight:650;
+}
+.schedule-table tr:last-child td{border-bottom:0;}
+.schedule-table__activity{font-weight:950;color:rgba(11,31,59,.92);}
+.schedule-table__time{
+  display:inline-flex;
+  padding:6px 10px;
+  border-radius:999px;
+  background:var(--accent-weak);
+  color:var(--accent);
+  font-weight:950;
+  margin-right:8px;
+  margin-top:2px;
+}
+
+/* Contacto */
+.contact-rows{display:grid;gap:10px;}
+.contact-row{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;}
+.contact-row__label{font-weight:900;}
+.contact-row__value{color:var(--muted);font-weight:700;text-align:right;}
+
+/* Acciones */
+.sede-card__actions{
+  padding:14px 18px 18px;
+  border-top:1px solid rgba(11,31,59,.10);
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
 
 .map-static{
   margin-top:14px;
@@ -671,6 +767,13 @@ html.is-modal-open{overflow:hidden;}
 .map-static:focus-visible{
   outline:3px solid rgba(1,160,223,.45);
   outline-offset:4px;
+}
+
+/* Reduce el peso visual del mapa SOLO dentro de Sedes */
+.sede-card__map{
+  margin:12px 18px 0;
+  height:clamp(160px, 18vw, 220px);
+  aspect-ratio:auto;
 }
 
 .list{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
@@ -807,6 +910,14 @@ html.is-modal-open{overflow:hidden;}
 @media (max-width: 560px){
   .list__item{flex-direction:column;gap:6px;}
   .list__value{text-align:left;}
+
+  /* Sedes: contacto más legible en mobile */
+  .contact-row{flex-direction:column;gap:6px;}
+  .contact-row__value{text-align:left;}
+
+  /* Tabla: reduce densidad sin perder jerarquía */
+  .schedule-table th{font-size:11px;}
+  .schedule-table td{font-size:14px;}
 }
 
 @media (max-width: 720px){
